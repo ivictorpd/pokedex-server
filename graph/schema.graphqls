@@ -1,0 +1,78 @@
+type Attack {
+    name: String!
+    type: String!
+    damage: Int!
+}
+
+type Pokemon {
+    id: ID!
+    number: Int!
+    name: String!
+    weight: PokemonDimension!
+    height: PokemonDimension!
+    classification: String!
+    types: [String!]!
+    resistant: [String!]!
+    attacks: PokemonAttack!
+    weaknesses: [String!]!
+    fleeRate: Float!
+    maxCP: Int!
+    evolutions: [Pokemon!]!
+    evolutionRequirements: PokemonEvolutionRequirement
+    maxHP: Int!
+    image: String!
+    sound: String!
+    isFavorite: Boolean!
+    CommonCaptureArea: String
+    Asia: String
+    AustraliaNewZealand: String
+    WesternEurope: String
+    NorthAmerica: String
+    PokMonClass: String
+    LEGENDARY: String
+    MYTHIC: String
+}
+
+type PokemonConnection {
+    limit: Int!
+    offset: String!
+    count: Int!
+    edges: [Pokemon!]!
+}
+
+input PokemonsQueryInput {
+    limit: Int = 10
+    offset: String
+    filter: PokemonFilterInput
+}
+
+input PokemonFilterInput {
+    searchType: String
+    searchName: String
+    isFavorite: Boolean
+}
+
+type PokemonAttack {
+    fast: [Attack!]!
+    special: [Attack!]!
+}
+
+type PokemonDimension {
+    minimum: String!
+    maximum: String!
+}
+
+type PokemonEvolutionRequirement {
+    amount: Int!
+    name: String!
+}
+
+type Query {
+    listPokemon(input: PokemonsQueryInput!): PokemonConnection!
+    getPokemonById(id: ID!): Pokemon
+    listPokemonTypes: [String!]!
+}
+
+type Mutation {
+    updateFavoritePokemon(id: ID!, isFavorite: Boolean): Pokemon
+}

@@ -1,0 +1,38 @@
+version: '3.7'
+networks:
+  pokedex-net:
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.25.0.0/16
+
+services:
+  dynamodb-local:
+    image: amazon/dynamodb-local:latest
+    container_name: dynamodb-local
+    ports:
+      - "8000:8000"
+    networks:
+      pokedex-net:
+        ipv4_address: 172.25.0.101
+
+  pokedex-server:
+    build:
+      context: .
+    container_name: "pokedex-server"
+    restart: always
+    ports:
+      - "8080:8080"
+    environment:
+      IMAGE_URL: "https://img.pokemondb.net/artwork/"
+      BASE_URL: "https://img.pokemondb.net/artwork/"
+      TABLE_NAME : "Pokemon"
+      ENTRY_POINT: "http://172.25.0.101:8000"
+      AWS_ACCESS_KEY_ID: test
+      AWS_SECRET_ACCESS_KEY: test
+    depends_on:
+      dynamodb-local:
+        condition: service_started
+    networks:
+      pokedex-net:
+        ipv4_address: 172.25.0.102

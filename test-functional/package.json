@@ -1,0 +1,27 @@
+{
+  "name": "pokedex-server-functional-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "files": [
+    "dist"
+  ],
+  "license": "",
+  "private": true,
+  "scripts": {
+    "test": "jest --verbose"
+  },
+  "dependencies": {
+    "axios": "^0.21.1",
+    "http": "^0.0.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.16",
+    "@babel/polyfill": "^7.12.1",
+    "@babel/preset-env": "^7.12.16",
+    "@babel/preset-react": "^7.12.13",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-jest": "^26.6.3",
+    "jest": "^26.6.3"
+  }
+}
